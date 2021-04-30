@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-bundle": "vue-cli-service build --target lib --name qa ./src/lib.js --mode production",
+    "build-watch": "vue-cli-service build --target lib --watch --name qa ./src/lib.js --mode development",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "swagger-ui": "^3.48.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

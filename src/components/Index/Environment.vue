@@ -32,7 +32,8 @@
       />
       <small class="form-text text-muted">Set your timeout.</small>
     </div>
-    <div class="form-group">
+
+    <div class="form-group" v-if="isEnabled(AllFeatures.pollingInterval)">
       <label>Polling interval (milliseconds)</label>
       <input
         type="text"
@@ -43,7 +44,7 @@
       <small class="form-text text-muted">Set your polling interval.</small>
     </div>
 
-    <div class="form-check mb-3" v-if="isEnabled('env.bucketing')">
+    <div class="form-check mb-3" v-if="isEnabled(AllFeatures.envBucketing)">
       <input class="form-check-input" type="checkbox" v-model="bucketing" />
       <label class="form-check-label"> Use bucketing </label>
     </div>

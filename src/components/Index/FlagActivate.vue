@@ -40,9 +40,6 @@ export default {
     };
   },
   methods: {
-    isUndefined(v) {
-      return typeof v !== "undefined";
-    },
     activateFlag() {
       this.activateOk = false;
 
@@ -55,10 +52,10 @@ export default {
 
       this.$http.get(`/flag/${name}/activate`).then(
         (response) => {
-          this.activateOk = response.body.activateValue;
+          this.activateOk = response.body;
         },
         (response) => {
-          this.activateOk = response.body.activateValue;
+          this.activateOk = response.body;
         }
       );
     },

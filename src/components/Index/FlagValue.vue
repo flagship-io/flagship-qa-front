@@ -76,9 +76,6 @@ export default {
     };
   },
   methods: {
-    isUndefined(v) {
-      return typeof v !== "undefined";
-    },
     getFlag() {
       this.flagOk = false;
       const { name, type, activate, defaultValue } = this.flag;

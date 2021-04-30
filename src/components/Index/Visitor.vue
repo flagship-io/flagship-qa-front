@@ -53,19 +53,19 @@
       <div class="row" style="align-items: center">
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Flag key</label>
+            <label>Context key</label>
             <input
               type="text"
               class="form-control"
               placeholder="Key"
-              v-model="newContext.name"
+              v-model="newContext.key"
             />
           </div>
         </div>
 
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Flag type</label>
+            <label>Context type</label>
             <select
               type="text"
               class="form-control"
@@ -84,7 +84,7 @@
 
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Value</label>
+            <label>Context value</label>
             <input
               type="text"
               class="form-control"
@@ -96,18 +96,18 @@
       </div>
       <div
         class="alert alert-warning mt-3 mb-3"
-        v-if="updateContextOk && updateContextOk.err"
+        v-if="updateContextOk && updateContextOk.error"
       >
-        {{ updateContextOk.err }}
+        {{ updateContextOk.error }}
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
 
       <div
         class="alert alert-success mt-3 mb-3"
-        v-if="updateContextOk && !isUndefined(updateContextOk.value)"
+        v-if="updateContextOk && isUndefined(updateContextOk.error)"
       >
-        {{ updateContextOk.value }}
+        New context: {{ context }}
       </div>
     </form>
   </div>
@@ -130,9 +130,6 @@ export default {
     this.getVisitor();
   },
   methods: {
-    isUndefined(v) {
-      return typeof v !== "undefined";
-    },
     getVisitor() {
       this.$http.get("/visitor").then((response) => {
         // get body data
@@ -167,29 +164,27 @@ export default {
       this.updateContextOk = false;
       this.data = null;
 
-      const { name, type, value } = this.newContext;
+      const { key, type, value } = this.newContext;
 
-      if (!name || !type) {
-        this.updateContextOk = { err: "Missing flag name or type" };
+      if (!key || !type || !value) {
+        this.updateContextOk = { err: "Missing context type or value" };
         return;
       }
-      console.log(this.newContext);
 
       this.$http
-        .get(`/flag/${name}/updateContext`, {
-          params: {
-            type,
-            value,
-          },
+        .put(`/visitor/context/${key}`, {
+          type,
+          value,
         })
         .then(
           (response) => {
-            this.data = {};
-            this.data.visitor = response.body;
+            const { flags, context } = response.body;
+            this.data = { visitor: { flags } };
+            this.context = JSON.stringify(context);
+            this.updateContextOk = response.body;
           },
           (response) => {
-            this.data = {};
-            this.data.visitor = response.body;
+            this.updateContextOk = response.body;
           }
         );
     },

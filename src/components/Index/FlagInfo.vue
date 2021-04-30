@@ -24,9 +24,9 @@
 
     <div
       class="alert alert-success mt-3 mb-3"
-      v-if="flagInfoOk && !flagInfoOk.error"
+      v-if="flagInfoOk && isUndefined(flagInfoOk.error)"
     >
-      {{ flagInfoOk }}
+      <pre>{{ flagInfoOk | json }}</pre>
     </div>
   </form>
 </template>
@@ -40,9 +40,6 @@ export default {
     };
   },
   methods: {
-    isUndefined(v) {
-      return typeof v !== "undefined";
-    },
     getFlagInfo() {
       this.flagInfoOk = false;
 
@@ -55,7 +52,7 @@ export default {
 
       this.$http.get(`/flag/${name}/info`).then(
         (response) => {
-          this.flagInfoOk = response.body.value;
+          this.flagInfoOk = response.body;
         },
         (response) => {
           this.flagInfoOk = response.body;
