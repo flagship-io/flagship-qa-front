@@ -16,10 +16,10 @@
       <div v-if="hit.t == 'EVENT'" class="form-group">
         <label>Event Category</label>
         <select class="form-control" v-model="hit.ec" required>
-          <option value="at">
+          <option value="ACTION_TRACKING">
             ACTION_TRACKING
           </option>
-          <option value="ue">
+          <option value="USER_ENGAGEMENT">
             USER_ENGAGEMENT
           </option>
         </select>
