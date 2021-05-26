@@ -81,7 +81,7 @@ export default {
       const { name, type, activate, defaultValue } = this.flag;
 
       if (!name || !type) {
-        this.flagOk = { err: "Missing flag name or type" };
+        this.flagOk = { error: "Missing flag name or type" };
         return;
       }
 
