@@ -52,8 +52,8 @@
       <label class="form-check-label"> Activate </label>
     </div>
 
-    <div class="alert alert-warning mt-3 mb-3" v-if="flagOk && flagOk.err">
-      {{ flagOk.err }}
+    <div class="alert alert-warning mt-3 mb-3" v-if="flagOk && flagOk.error">
+      {{ flagOk.error }}
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
