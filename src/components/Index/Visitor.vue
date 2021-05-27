@@ -182,6 +182,7 @@ export default {
             this.data = { visitor: { flags } };
             this.context = JSON.stringify(context);
             this.updateContextOk = response.body;
+            this.setVisitor();
           },
           (response) => {
             this.updateContextOk = response.body;
