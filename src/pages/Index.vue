@@ -24,6 +24,11 @@
       <h2 class="mt-5">Get modification information</h2>
       <FlagInfo />
     </div>
+
+    <div v-if="isEnabled(AllFeatures.xpc)">
+      <h2 class="mt-5">Experience continuity</h2>
+      <Xpc />
+    </div>
   </div>
 </template>
 
@@ -33,10 +38,12 @@ import Visitor from "../components/Index/Visitor";
 import FlagValue from "../components/Index/FlagValue";
 import FlagActivate from "../components/Index/FlagActivate";
 import FlagInfo from "../components/Index/FlagInfo";
+import Xpc from "@/components/Index/Xpc";
 
 export default {
   name: "qa",
   components: {
+    Xpc,
     Environment,
     Visitor,
     FlagValue,

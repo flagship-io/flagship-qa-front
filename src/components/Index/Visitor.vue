@@ -28,6 +28,14 @@
         >
       </div>
 
+      <div class="form-group">
+        <label for="checkbox" v-if="isEnabled(AllFeatures.xpc)" style="margin-right: 10px">Is authenticated : </label>
+        <input type="checkbox" v-if="isEnabled(AllFeatures.xpc)" style="vertical-align: middle" v-model="authenticated">
+
+        <label for="checkbox" v-if="isEnabled(AllFeatures.consent)" style="margin-left: 50px; margin-right: 10px">Has consented : </label>
+        <input type="checkbox" v-if="isEnabled(AllFeatures.consent)" v-model="consent" style="vertical-align: middle" checked>
+      </div>
+
       <div class="alert alert-danger" v-if="visitorError">
         {{ visitorError.error }}
       </div>
@@ -124,6 +132,8 @@ export default {
       visitorError: null,
       newContext: { name: "", type: "bool", value: "" },
       updateContextOk: false,
+      authenticated: false,
+      consent: true,
     };
   },
   mounted() {
@@ -145,6 +155,8 @@ export default {
       this.$http
         .put("/visitor", {
           visitor_id: this.visitorId,
+          authenticated: this.authenticated ? this.authenticated : false,
+          consent: this.consent ? this.consent : false,
           context: this.context ? JSON.parse(this.context) : "{}",
         })
         .then(

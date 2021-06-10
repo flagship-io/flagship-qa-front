@@ -11,7 +11,9 @@ export const V1 = {
 
 export const V2 = {
   bucketing: "bucketing",
-  pollingInterval: "polling-interval",
+  // pollingInterval: "polling-interval",
+  consent:"consent",
+  xpc:"xpc",
 };
 
 export const All = {
