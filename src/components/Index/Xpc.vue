@@ -31,8 +31,63 @@
 
 <script>
 export default {
-  name: "Xpc"
-}
+  name: "Xpc",
+  data() {
+    return {
+      data: null,
+      visitorOk: false,
+      visitorError: null,
+    };
+  },
+  methods: {
+    authenticate() {
+      this.visitorOk = false;
+      this.visitorError = null;
+      this.data = null;
+      this.$http
+          .get("/visitor/authenticate", {
+            params:
+                {
+                  newVisitorId: this.newVisitorId
+                }
+          })
+          .then(
+              (response) => {
+                // get body data
+                this.data = {}
+                this.data.visitor = response.body;
+                this.visitorOk = true;
+                this.$root.$emit('refresh_visitor', '');
+              },
+              (response) => {
+                this.visitorOk = false;
+                this.visitorError = response.body;
+              }
+          );
+    },
+    unauthenticate() {
+      this.visitorOk = false;
+      this.visitorError = null;
+      this.data = null;
+      this.$http
+          .get("/visitor/unauthenticate", {
+          })
+          .then(
+              (response) => {
+                // get body data
+                this.data = {}
+                this.data.visitor = response.body;
+                this.visitorOk = true;
+                this.$root.$emit('refresh_visitor', '');
+              },
+              (response) => {
+                this.visitorOk = false;
+                this.visitorError = response.body;
+              }
+          );
+    },
+  },
+};
 </script>
 
 <style scoped>

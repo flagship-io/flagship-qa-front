@@ -138,13 +138,21 @@ export default {
   },
   mounted() {
     this.getVisitor();
+    this.refresh();
   },
   methods: {
+    refresh () {
+      this.$root.$on('refresh_visitor', (text) => { // here you need to use the arrow function
+        this.getVisitor();
+      })
+    },
     getVisitor() {
       this.$http.get("/visitor").then((response) => {
         // get body data
         this.visitorId = response.body.visitor_id;
         this.context = JSON.stringify(response.body.context);
+        this.data.visitor = response.body;
+        this.visitorOk = true;
       });
     },
     setVisitor() {
@@ -184,7 +192,8 @@ export default {
       }
 
       this.$http
-        .put(`/visitor/context/${key}`, {
+        .put(`/visitor/context`, {
+          key,
           type,
           value,
         })

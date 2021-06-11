@@ -148,6 +148,45 @@ export default {
         },
       },
     },
+    "/visitor/context": {
+      put: {
+        tags: ["Visitor"],
+        summary: "Upsert context key/value",
+        operationId: "updateContext",
+        consumes: ["application/json"],
+        produces: ["application/json"],
+        parameters: [
+          {
+            name: "key",
+            in: "body",
+            description: "Context key to upsert",
+            required: true,
+            type: "string",
+          },
+          {
+            name: "type",
+            in: "body",
+            description: "Context value type to upsert",
+            required: true,
+            type: "string",
+          },
+          {
+            name: "value",
+            in: "body",
+            description: "Context value to upsert",
+            required: true,
+            type: "string",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "successful operation",
+            schema: { $ref: "#/definitions/VisitorInfo" },
+          },
+          "400": { description: "Invalid data sent" },
+        },
+      },
+    },
     "/flag/{name}": {
       get: {
         tags: ["Flag"],
