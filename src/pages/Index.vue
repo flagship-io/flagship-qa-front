@@ -7,7 +7,14 @@
 
     <div v-if="isEnabled(AllFeatures.visitor)">
       <h2 class="mt-5">Then, set your Visitor ID and context</h2>
-      <Visitor />
+      <Visitor
+        :visitorId="visitorId"
+        :changeVisitorId="(newId) => (this.visitorId = newId)"
+      />
+    </div>
+
+    <div v-if="isEnabled(AllFeatures.experienceContinuity)">
+      <ExperienceContinuity :visitorId="visitorId" />
     </div>
 
     <div v-if="isEnabled(AllFeatures.flagValue)">
@@ -33,6 +40,7 @@ import Visitor from "../components/Index/Visitor";
 import FlagValue from "../components/Index/FlagValue";
 import FlagActivate from "../components/Index/FlagActivate";
 import FlagInfo from "../components/Index/FlagInfo";
+import ExperienceContinuity from "../components/Index/ExperienceContinuity.vue";
 
 export default {
   name: "qa",
@@ -42,6 +50,12 @@ export default {
     FlagValue,
     FlagActivate,
     FlagInfo,
+    ExperienceContinuity,
+  },
+  data() {
+    return {
+      visitorId: "",
+    };
   },
 };
 </script>

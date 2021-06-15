@@ -7,7 +7,8 @@
           type="text"
           class="form-control"
           placeholder="Visitor ID"
-          v-model="visitorId"
+          :value="visitorId"
+          @input="(e) => changeVisitorId(e.target.value)"
         />
         <small id="emailHelp" class="form-text text-muted"
           >Set your Flagship Visitor ID.</small
@@ -115,10 +116,10 @@
 
 <script>
 export default {
+  props: ["visitorId", "changeVisitorId"],
   data() {
     return {
       data: null,
-      visitorId: "test-visitor",
       context: "{\n}",
       visitorOk: false,
       visitorError: null,
@@ -133,7 +134,7 @@ export default {
     getVisitor() {
       this.$http.get("/visitor").then((response) => {
         // get body data
-        this.visitorId = response.body.visitor_id;
+        changeVisitorId(response.body.visitor_id);
         this.context = JSON.stringify(response.body.context);
       });
     },

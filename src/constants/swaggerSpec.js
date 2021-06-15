@@ -97,7 +97,10 @@ export default {
             description: "successful operation",
             schema: { $ref: "#/definitions/EnvInfo" },
           },
-          "400": { description: "Invalid data sent" },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
         },
       },
     },
@@ -110,10 +113,11 @@ export default {
         responses: {
           "200": {
             description: "successful operation",
-            schema: {
-              type: "array",
-              items: { $ref: "#/definitions/VisitorInfo" },
-            },
+            schema: { $ref: "#/definitions/VisitorInfo" },
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
           },
         },
       },
@@ -144,7 +148,56 @@ export default {
             description: "successful operation",
             schema: { $ref: "#/definitions/VisitorInfo" },
           },
-          "400": { description: "Invalid data sent" },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
+        },
+      },
+    },
+    "/authenticate": {
+      put: {
+        tags: ["Visitor"],
+        summary: "Authenticate current visitor",
+        operationId: "authenticateVisitor",
+        produces: ["application/json"],
+        parameters: [
+          {
+            name: "new_visitor_id",
+            in: "body",
+            description: "The new visitor ID",
+            required: true,
+            type: "string",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "successful operation",
+            schema: { $ref: "#/definitions/VisitorAuthenticated" },
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
+        },
+      },
+    },
+    "/authenticate": {
+      put: {
+        tags: ["Visitor"],
+        summary: "Unauthenticate current visitor",
+        operationId: "unauthenticateVisitor",
+        produces: ["application/json"],
+        parameters: [],
+        responses: {
+          "200": {
+            description: "successful operation",
+            schema: { $ref: "#/definitions/VisitorAuthenticated" },
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
         },
       },
     },
@@ -194,6 +247,10 @@ export default {
               items: { $ref: "#/definitions/FlagValueInfo" },
             },
           },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
         },
       },
     },
@@ -220,6 +277,10 @@ export default {
               items: { $ref: "#/definitions/FlagInfo" },
             },
           },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
         },
       },
     },
@@ -241,6 +302,10 @@ export default {
         responses: {
           "200": {
             description: "successful operation",
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
           },
         },
       },
@@ -265,7 +330,10 @@ export default {
             description: "successful operation",
             schema: { $ref: "#/definitions/EnvInfo" },
           },
-          "400": { description: "Invalid data sent" },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
         },
       },
     },
@@ -286,6 +354,13 @@ export default {
       properties: {
         visitor_id: { type: "string" },
         context: { type: "object" },
+      },
+    },
+    VisitorAuthenticated: {
+      type: "object",
+      properties: {
+        visitorId: { type: "string" },
+        anonymousId: { type: "string" },
       },
     },
     FlagValueInfo: {
@@ -319,6 +394,13 @@ export default {
         campaignId: { type: "string" },
         variationGroupId: { type: "string" },
         variationId: { type: "string" },
+      },
+    },
+    BadRequest: {
+      type: "object",
+      properties: {
+        ok: { type: "boolean" },
+        error: { type: "string" },
       },
     },
   },

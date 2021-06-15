@@ -74,7 +74,7 @@ You can then customize the data to display the QA App
           technology: "Go",
           branch: "qa",
           environment: "prod",
-          features: null,
+          features: FSFeatures.All,
         },
       });
     </script>
@@ -85,36 +85,12 @@ You can then customize the data to display the QA App
 
 ### Features usage in the QA App
 
-Fill out the "env" property of the <qa> tag with the features you have implemented in your SDK
+Fill out the "features" property of the <qa> tag with the features you have implemented in your SDK
 
 # Running locally
 
-## Configure IDE or run command `npm run build-watch` on the assets/public folder
+## Configure IDE or run command `npm run build-watch` in a background terminal 
 
 ## Add a static hosting in your QA app for the assets/public folder
 
-# Features implementations
-
-## Environment (codename `env`)
-
-API Endpoints:
-
-### GET `/env`:
-
-return
-```
-{
-    environment_id: "env_id",
-    api_key: "api_key",
-    timeout: 100,
-    polling_interval: 3000
-}
-```
-
-### POST `/env`:
-
-Body parameters:
-- environment_id (string)
-- api_key (string)
-- timeout (integer): the timeout in seconds
-- polling_interval (integer): the timeout in seconds
+# New features implementations
