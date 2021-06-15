@@ -182,7 +182,7 @@ export default {
         },
       },
     },
-    "/authenticate": {
+    "/unauthenticate": {
       put: {
         tags: ["Visitor"],
         summary: "Unauthenticate current visitor",
