@@ -134,7 +134,7 @@ export default {
     getVisitor() {
       this.$http.get("/visitor").then((response) => {
         // get body data
-        changeVisitorId(response.body.visitor_id);
+        this.changeVisitorId(response.body.visitor_id);
         this.context = JSON.stringify(response.body.context);
       });
     },

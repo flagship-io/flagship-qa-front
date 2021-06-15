@@ -74,7 +74,7 @@ export default {
             this.data = response.body;
             this.visitorAuth.ok = true;
             this.anonymousId = response.body.anonymousId;
-            onNewVisitorId(response.body.visitorId);
+            this.onNewVisitorId(response.body.visitorId);
           },
           (response) => {
             this.visitorAuth.ok = false;
@@ -90,7 +90,7 @@ export default {
           this.data = response.body;
           this.visitorUnauth.ok = true;
           this.anonymousId = response.body.anonymousId;
-          onNewVisitorId(response.body.visitorId);
+          this.onNewVisitorId(response.body.visitorId);
         },
         (response) => {
           this.visitorUnauth.ok = false;
