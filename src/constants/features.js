@@ -15,7 +15,12 @@ export const V2 = {
   experienceContinuity: "experience-continuity",
 };
 
+export const V3 = {
+  consent: "visitor-consent",
+};
+
 export const All = {
   ...V1,
   ...V2,
+  ...V3,
 };

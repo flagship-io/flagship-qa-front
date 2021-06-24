@@ -85,13 +85,6 @@ export default {
             type: "boolean",
           },
           {
-            name: "bucketing_path",
-            in: "body",
-            description: "Bucketing file path",
-            required: false,
-            type: "string",
-          },
-          {
             name: "polling_interval",
             in: "body",
             description: "The Bucketing polling interval in seconds",
@@ -360,7 +353,6 @@ export default {
         api_key: { type: "string" },
         timeout: { type: "integer" },
         bucketing: { type: "boolean" },
-        bucketing_path: { type: "string" },
         polling_interval: { type: "integer" },
       },
     },
