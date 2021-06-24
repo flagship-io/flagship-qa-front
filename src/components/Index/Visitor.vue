@@ -29,6 +29,15 @@
         >
       </div>
 
+      <div class="form-check mb-3" v-if="isEnabled(AllFeatures.consent)">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          v-model="consent"
+        />
+        <label class="form-check-label">Visitor consent</label>
+      </div>
+
       <div class="alert alert-danger" v-if="visitorError">
         {{ visitorError.error }}
       </div>
@@ -123,6 +132,7 @@ export default {
       context: "{\n}",
       visitorOk: false,
       visitorError: null,
+      consent: true,
       newContext: { name: "", type: "bool", value: "" },
       updateContextOk: false,
     };
@@ -136,6 +146,7 @@ export default {
         // get body data
         this.changeVisitorId(response.body.visitor_id);
         this.context = JSON.stringify(response.body.context);
+        this.consent = response.body.consent;
       });
     },
     setVisitor() {
@@ -147,6 +158,7 @@ export default {
         .put("/visitor", {
           visitor_id: this.visitorId,
           context: this.context ? JSON.parse(this.context) : "{}",
+          consent: this.consent,
         })
         .then(
           (response) => {

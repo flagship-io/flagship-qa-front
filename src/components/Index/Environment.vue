@@ -49,6 +49,16 @@
       <label class="form-check-label"> Use bucketing </label>
     </div>
 
+    <div class="form-check mb-3" v-if="isEnabled(AllFeatures.bucketingPath)">
+      <label>Bucketing path for bucketing file</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Bucketing path"
+        v-model.number="bucketingPath"
+      />
+    </div>
+
     <div class="alert alert-danger" v-if="envError">
       {{ envError.error }}
     </div>
@@ -69,6 +79,7 @@ export default {
       timeout: 2000,
       pollingInterval: 60000,
       bucketing: false,
+      bucketingPath: "",
       envOk: false,
       envError: null,
     };
@@ -82,6 +93,7 @@ export default {
         // get body data
         this.currentEnv = response.body;
         this.bucketing = response.body.bucketing;
+        this.bucketingPath = response.body.bucketing_path;
         this.envId = response.body.environment_id;
         this.apiKey = response.body.api_key;
         this.timeout = response.body.timeout;
@@ -98,6 +110,7 @@ export default {
           bucketing: this.bucketing,
           timeout: this.timeout || 0,
           polling_interval: this.pollingInterval || 0,
+          bucketing_path: this.bucketingPath,
         })
         .then(
           () => {

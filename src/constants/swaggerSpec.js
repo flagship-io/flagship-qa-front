@@ -85,6 +85,13 @@ export default {
             type: "boolean",
           },
           {
+            name: "bucketing_path",
+            in: "body",
+            description: "Bucketing file path",
+            required: false,
+            type: "string",
+          },
+          {
             name: "polling_interval",
             in: "body",
             description: "The Bucketing polling interval in seconds",
@@ -141,6 +148,13 @@ export default {
             description: "The visitor context",
             required: true,
             type: "object",
+          },
+          {
+            name: "consent",
+            in: "body",
+            description: "The visitor consent",
+            required: true,
+            type: "boolean",
           },
         ],
         responses: {
@@ -346,6 +360,7 @@ export default {
         api_key: { type: "string" },
         timeout: { type: "integer" },
         bucketing: { type: "boolean" },
+        bucketing_path: { type: "string" },
         polling_interval: { type: "integer" },
       },
     },
@@ -354,6 +369,7 @@ export default {
       properties: {
         visitor_id: { type: "string" },
         context: { type: "object" },
+        consent: { type: "boolean" },
       },
     },
     VisitorAuthenticated: {
