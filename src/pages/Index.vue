@@ -9,7 +9,7 @@
       <h2 class="mt-5">Then, set your Visitor ID and context</h2>
       <Visitor
         :visitorId="visitorId"
-        :onNewVisitorId="(vId) => (this.visitorId = vId)"
+        :changeVisitorId="(newId) => (this.visitorId = newId)"
       />
     </div>
 
