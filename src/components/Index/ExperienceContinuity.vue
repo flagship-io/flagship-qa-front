@@ -66,7 +66,7 @@ export default {
       this.visitorAuth = { ok: false, error: null };
 
       this.$http
-        .post("/authenticate", {
+        .put("/authenticate", {
           new_visitor_id: this.newVisitorId,
         })
         .then(
@@ -85,7 +85,7 @@ export default {
     unauthenticate() {
       this.visitorUnauth = { ok: false, error: null };
 
-      this.$http.post("/unauthenticate", {}).then(
+      this.$http.put("/unauthenticate", {}).then(
         (response) => {
           this.data = response.body;
           this.visitorUnauth.ok = true;
