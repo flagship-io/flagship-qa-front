@@ -9,12 +9,15 @@
       <h2 class="mt-5">Then, set your Visitor ID and context</h2>
       <Visitor
         :visitorId="visitorId"
-        :changeVisitorId="(newId) => (this.visitorId = newId)"
+        :onNewVisitorId="(vId) => (this.visitorId = vId)"
       />
     </div>
 
     <div v-if="isEnabled(AllFeatures.experienceContinuity)">
-      <ExperienceContinuity :visitorId="visitorId" />
+      <ExperienceContinuity
+        :visitorId="visitorId"
+        :onNewVisitorId="(vId) => (this.visitorId = vId)"
+      />
     </div>
 
     <div v-if="isEnabled(AllFeatures.flagValue)">
