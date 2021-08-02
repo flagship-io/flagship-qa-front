@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     refresh () {
-      this.$root.$on('refresh_visitor', (text) => { // here you need to use the arrow function
+      this.$root.$on('refresh_visitor', () => { // here you need to use the arrow function
         this.getVisitor();
       })
     },
@@ -152,6 +152,7 @@ export default {
         this.visitorId = response.body.visitor_id;
         this.context = JSON.stringify(response.body.context);
         this.data.visitor = response.body;
+        console.log("==> " + this.data.visitor)
         this.visitorOk = true;
       });
     },

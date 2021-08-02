@@ -29,6 +29,11 @@
       <h2 class="mt-5">Experience continuity</h2>
       <Xpc />
     </div>
+
+    <div v-if="isEnabled(AllFeatures.consent)">
+      <h2 class="mt-5">Consent</h2>
+      <Consent />
+    </div>
   </div>
 </template>
 
@@ -39,6 +44,7 @@ import FlagValue from "../components/Index/FlagValue";
 import FlagActivate from "../components/Index/FlagActivate";
 import FlagInfo from "../components/Index/FlagInfo";
 import Xpc from "@/components/Index/Xpc";
+import Consent from "../components/Index/Consent";
 
 export default {
   name: "qa",
@@ -49,6 +55,7 @@ export default {
     FlagValue,
     FlagActivate,
     FlagInfo,
+    Consent,
   },
 };
 </script>
