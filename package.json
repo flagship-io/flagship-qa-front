@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "build-bundle": "vue-cli-service build --dest dist/lib --target lib --name qa ./src/lib.js --mode production",
     "build-watch": "vue-cli-service build --target lib --watch --name qa ./src/lib.js --mode development",
+    "build-local": "vue-cli-service build --target lib --name qa ./src/lib.js --mode production",
     "lint": "vue-cli-service lint"
   },
   "devDependencies": {
