@@ -34,6 +34,7 @@
     "not dead"
   ],
   "dependencies": {
+    "eslint":"7.32.0",
     "eslint-plugin-vue": "^7.10.0",
     "swagger-ui": "^3.50.0",
     "swagger-ui-dist": "^3.50.0",
