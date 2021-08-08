@@ -33,8 +33,21 @@
       <small class="form-text text-muted">Set your timeout.</small>
     </div>
 
-    <div class="form-group" v-if="isEnabled(AllFeatures.pollingInterval)">
-      <label>Polling interval (milliseconds)</label>
+    <div class="form-group" v-if="isEnabled(AllFeatures.bucketing)">
+      <label>Flagship Mode</label>
+      <select
+        type="text"
+        class="form-control"
+        placeholder="Flagship Mode"
+        v-model="flagshipMode"
+      >
+        <option value="api">API</option>
+        <option value="bucketing">Bucketing</option>
+      </select>
+    </div>
+
+    <div v-if="flagshipMode == 'bucketing'" class="form-group">
+      <label>Polling time interval</label>
       <input
         type="text"
         class="form-control"
@@ -44,12 +57,19 @@
       <small class="form-text text-muted">Set your polling interval.</small>
     </div>
 
-    <div class="form-check mb-3" v-if="isEnabled(AllFeatures.bucketing)">
-      <input class="form-check-input" type="checkbox" v-model="bucketing" />
-      <label class="form-check-label"> Use bucketing </label>
+    <div v-if="flagshipMode == 'bucketing'" class="form-group">
+      <label>Polling time interval unit</label>
+      <select
+        type="text"
+        class="form-control"
+        placeholder="Flagship Mode"
+        v-model="pollingIntervalUnit"
+      >
+        <option value="milliseconds">Milliseconds</option>
+        <option value="seconds">Second</option>
+        <option value="minutes">Minutes</option>
+      </select>
     </div>
-
-   
 
     <div class="alert alert-danger" v-if="envError">
       {{ envError.error }}
@@ -68,11 +88,12 @@ export default {
     return {
       envId: "",
       apiKey: "",
-      timeout: 2000,
-      pollingInterval: 60000,
-      bucketing: false,
+      timeout: 0,
+      pollingInterval: 0,
       envOk: false,
       envError: null,
+      flagshipMode: "api",
+      pollingIntervalUnit: "milliseconds",
     };
   },
   mounted() {
@@ -87,7 +108,12 @@ export default {
         this.envId = response.body.environment_id;
         this.apiKey = response.body.api_key;
         this.timeout = response.body.timeout;
-        this.pollingInterval = response.body.polling_interval;
+        this.flagshipMode = response.body.flagship_mode || "api";
+        this.flagshipMode === "bucketing"
+          ? {
+              polling_interval_unit: this.pollingIntervalUnit || "milliseconds",
+            }
+          : {};
       });
     },
     setEnv() {
@@ -99,7 +125,16 @@ export default {
           api_key: this.apiKey,
           bucketing: this.bucketing,
           timeout: this.timeout || 0,
-          polling_interval: this.pollingInterval || 0,
+          flagship_mode: this.flagshipMode || "api",
+          ...(this.flagshipMode === "bucketing"
+            ? { polling_interval: this.pollingInterval || 2000 }
+            : {}),
+          ...(this.flagshipMode === "bucketing"
+            ? {
+                polling_interval_unit:
+                  this.pollingIntervalUnit || "milliseconds",
+              }
+            : {}),
         })
         .then(
           () => {
