@@ -33,7 +33,7 @@
       <small class="form-text text-muted">Set your timeout.</small>
     </div>
 
-    <div class="form-group" v-if="isEnabled(AllFeatures.bucketing)">
+    <div class="form-group">
       <label>Flagship Mode</label>
       <select
         type="text"
@@ -42,11 +42,18 @@
         v-model="flagshipMode"
       >
         <option value="api">API</option>
-        <option value="bucketing">Bucketing</option>
+        <option value="bucketing" v-if="isEnabled(AllFeatures.bucketing)">
+          Bucketing
+        </option>
       </select>
     </div>
 
-    <div v-if="flagshipMode == 'bucketing'" class="form-group">
+    <div
+      v-if="
+        flagshipMode == 'bucketing' && isEnabled(AllFeatures.pollingInterval)
+      "
+      class="form-group"
+    >
       <label>Polling time interval</label>
       <input
         type="text"
@@ -57,7 +64,13 @@
       <small class="form-text text-muted">Set your polling interval.</small>
     </div>
 
-    <div v-if="flagshipMode == 'bucketing'" class="form-group">
+    <div
+      v-if="
+        flagshipMode == 'bucketing' &&
+        isEnabled(AllFeatures.pollingIntervalUnit)
+      "
+      class="form-group"
+    >
       <label>Polling time interval unit</label>
       <select
         type="text"

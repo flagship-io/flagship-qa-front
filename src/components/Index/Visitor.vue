@@ -30,11 +30,7 @@
       </div>
 
       <div class="form-check mb-3" v-if="isEnabled(AllFeatures.consent)">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          v-model="consent"
-        />
+        <input class="form-check-input" type="checkbox" v-model="consent" />
         <label class="form-check-label">Visitor consent</label>
       </div>
 

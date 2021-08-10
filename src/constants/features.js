@@ -12,6 +12,7 @@ export const V1 = {
 export const V2 = {
   bucketing: "bucketing",
   pollingInterval: "polling-interval",
+  pollingIntervalUnit: "polling-interval-unit",
   experienceContinuity: "experience-continuity",
 };
 
