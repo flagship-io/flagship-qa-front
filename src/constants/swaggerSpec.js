@@ -78,11 +78,11 @@ export default {
             type: "integer",
           },
           {
-            name: "bucketing",
+            name: "flagship_mode",
             in: "body",
-            description: "Use bucketing mode",
+            description: "flagship mode used",
             required: true,
-            type: "boolean",
+            type: "string",
           },
           {
             name: "polling_interval",
@@ -90,6 +90,13 @@ export default {
             description: "The Bucketing polling interval in seconds",
             required: true,
             type: "integer",
+          },
+          {
+            name: "polling_interval_unit",
+            in: "body",
+            description: "choose the polling interval unit",
+            required: false,
+            type: "string",
           },
         ],
         responses: {
@@ -154,6 +161,50 @@ export default {
           "200": {
             description: "successful operation",
             schema: { $ref: "#/definitions/VisitorInfo" },
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
+        },
+      },
+    },
+    "/visitor/context/{name}": {
+      put: {
+        tags: ["Visitor"],
+        summary: "Add specific context to the visitor",
+        operationId: "updateContext",
+        produces: ["application/json"],
+        consumes: ["application/json"],
+        parameters: [
+          {
+            name: "name",
+            in: "path",
+            description: "The context key name",
+            required: true,
+            type: "string",
+          },
+          {
+            name: "type",
+            in: "body",
+            description: "The context type",
+            required: true,
+            type: "string",
+          },
+          {
+            name: "value",
+            in: "body",
+            description: "The context value",
+            required: true,
+            type: "string",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "successful operation",
+            schema: {
+              $ref: "#/definitions/ContextInfo",
+            },
           },
           "400": {
             description: "error operation",
@@ -250,8 +301,7 @@ export default {
           "200": {
             description: "successful operation",
             schema: {
-              type: "array",
-              items: { $ref: "#/definitions/FlagValueInfo" },
+              $ref: "#/definitions/FlagValueInfo",
             },
           },
           "400": {
@@ -280,8 +330,7 @@ export default {
           "200": {
             description: "successful operation",
             schema: {
-              type: "array",
-              items: { $ref: "#/definitions/FlagInfo" },
+              $ref: "#/definitions/FlagInfo",
             },
           },
           "400": {
@@ -345,6 +394,7 @@ export default {
       },
     },
   },
+
   definitions: {
     EnvInfo: {
       type: "object",
@@ -352,8 +402,9 @@ export default {
         environment_id: { type: "string" },
         api_key: { type: "string" },
         timeout: { type: "integer" },
-        bucketing: { type: "boolean" },
+        flagship_mode: { type: "string" },
         polling_interval: { type: "integer" },
+        polling_interval_unit: { type: "string" },
       },
     },
     VisitorInfo: {
@@ -362,6 +413,14 @@ export default {
         visitor_id: { type: "string" },
         context: { type: "object" },
         consent: { type: "boolean" },
+        modification: { type: "object" },
+      },
+    },
+    ContextInfo: {
+      type: "object",
+      properties: {
+        context: { type: "string" },
+        flags: { type: "object" },
       },
     },
     VisitorAuthenticated: {
