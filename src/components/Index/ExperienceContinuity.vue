@@ -51,53 +51,53 @@
 
 <script>
 export default {
-  props: ["visitorId", "onNewVisitorId"],
-  data() {
+  props: ['visitorId', 'onNewVisitorId'],
+  data () {
     return {
-      newVisitorId: "",
+      newVisitorId: '',
       anonymousId: false,
       isAuthenticated: false,
       visitorAuth: {},
-      visitorUnauth: {},
-    };
+      visitorUnauth: {}
+    }
   },
   methods: {
-    authenticate() {
-      this.visitorAuth = { ok: false, error: null };
+    authenticate () {
+      this.visitorAuth = { ok: false, error: null }
 
       this.$http
-        .put("/authenticate", {
-          new_visitor_id: this.newVisitorId,
+        .put('/authenticate', {
+          new_visitor_id: this.newVisitorId
         })
         .then(
           (response) => {
-            this.data = response.body;
-            this.visitorAuth.ok = true;
-            this.anonymousId = response.body.anonymousId;
-            this.onNewVisitorId(response.body.visitorId);
+            this.data = response.body
+            this.visitorAuth.ok = true
+            this.anonymousId = response.body.anonymousId
+            this.onNewVisitorId(response.body.visitorId)
           },
           (response) => {
-            this.visitorAuth.ok = false;
-            this.visitorAuth.error = response.body;
+            this.visitorAuth.ok = false
+            this.visitorAuth.error = response.body
           }
-        );
+        )
     },
-    unauthenticate() {
-      this.visitorUnauth = { ok: false, error: null };
+    unauthenticate () {
+      this.visitorUnauth = { ok: false, error: null }
 
-      this.$http.put("/unauthenticate", {}).then(
+      this.$http.put('/unauthenticate', {}).then(
         (response) => {
-          this.data = response.body;
-          this.visitorUnauth.ok = true;
-          this.anonymousId = response.body.anonymousId;
-          this.onNewVisitorId(response.body.visitorId);
+          this.data = response.body
+          this.visitorUnauth.ok = true
+          this.anonymousId = response.body.anonymousId
+          this.onNewVisitorId(response.body.visitorId)
         },
         (response) => {
-          this.visitorUnauth.ok = false;
-          this.visitorUnauth.error = response.body;
+          this.visitorUnauth.ok = false
+          this.visitorUnauth.error = response.body
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

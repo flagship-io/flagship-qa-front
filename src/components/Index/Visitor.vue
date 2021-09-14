@@ -121,83 +121,83 @@
 
 <script>
 export default {
-  props: ["visitorId", "changeVisitorId"],
-  data() {
+  props: ['visitorId', 'changeVisitorId'],
+  data () {
     return {
       data: null,
-      context: "{\n}",
+      context: '{\n}',
       visitorOk: false,
       visitorError: null,
       consent: true,
-      newContext: { name: "", type: "bool", value: "" },
-      updateContextOk: false,
-    };
+      newContext: { name: '', type: 'bool', value: '' },
+      updateContextOk: false
+    }
   },
-  mounted() {
-    this.getVisitor();
+  mounted () {
+    this.getVisitor()
   },
   methods: {
-    getVisitor() {
-      this.$http.get("/visitor").then((response) => {
+    getVisitor () {
+      this.$http.get('/visitor').then((response) => {
         // get body data
-        this.changeVisitorId(response.body.visitor_id);
-        this.context = JSON.stringify(response.body.context);
-        this.consent = response.body.consent;
-      });
+        this.changeVisitorId(response.body.visitor_id)
+        this.context = JSON.stringify(response.body.context)
+        this.consent = response.body.consent
+      })
     },
-    setVisitor() {
-      this.visitorOk = false;
-      this.visitorError = null;
-      this.data = null;
+    setVisitor () {
+      this.visitorOk = false
+      this.visitorError = null
+      this.data = null
 
       this.$http
-        .put("/visitor", {
+        .put('/visitor', {
           visitor_id: this.visitorId,
-          context: this.context ? JSON.parse(this.context) : "{}",
-          consent: this.consent,
+          context: this.context ? JSON.parse(this.context) : '{}',
+          consent: this.consent
         })
         .then(
           (response) => {
             // get body data
-            this.data = {};
-            this.data.visitor = response.body;
-            this.visitorOk = true;
+            this.data = {}
+            this.data.visitor = response.body
+            this.visitorOk = true
           },
           (response) => {
-            this.visitorOk = false;
-            this.visitorError = response.body;
+            this.visitorOk = false
+            this.visitorError = response.body
           }
-        );
+        )
     },
-    updateContext() {
-      this.updateContextOk = false;
-      this.data = null;
+    updateContext () {
+      this.updateContextOk = false
+      this.data = null
 
-      const { key, type, value } = this.newContext;
+      const { key, type, value } = this.newContext
 
       if (!key || !type || !value) {
-        this.updateContextOk = { err: "Missing context type or value" };
-        return;
+        this.updateContextOk = { error: 'Missing context type or value' }
+        return
       }
 
       this.$http
         .put(`/visitor/context/${key}`, {
           type,
-          value,
+          value
         })
         .then(
           (response) => {
-            const { flags, context } = response.body;
-            this.data = { visitor: { flags } };
-            this.context = JSON.stringify(context);
-            this.updateContextOk = response.body;
-            this.setVisitor();
+            const { flags, context } = response.body
+            this.data = { visitor: { flags } }
+            this.context = JSON.stringify(context)
+            this.updateContextOk = response.body
+            this.setVisitor()
           },
           (response) => {
-            this.updateContextOk = response.body;
+            this.updateContextOk = response.body
           }
-        );
-    },
-  },
-};
+        )
+    }
+  }
+}
 </script>
