@@ -1,20 +1,20 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    features: [],
+    features: []
   },
   mutations: {
-    setFeatures(state, newFeatures) {
-      state.features = newFeatures;
-    },
+    setFeatures (state, newFeatures) {
+      state.features = newFeatures
+    }
   },
   getters: {
-    features: (state) => state.features,
-  },
-});
+    features: (state) => state.features
+  }
+})
 
-export default store;
+export default store

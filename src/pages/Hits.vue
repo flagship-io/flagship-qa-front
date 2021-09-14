@@ -307,35 +307,35 @@
 
 <script>
 export default {
-  name: "qa",
-  data() {
+  name: 'qa',
+  data () {
     return {
       eventOk: false,
       eventError: null,
-      hit: { t: "EVENT" },
-      hitTypes: ["EVENT", "TRANSACTION", "ITEM", "PAGE", "SCREEN"],
-    };
+      hit: { t: 'EVENT' },
+      hitTypes: ['EVENT', 'TRANSACTION', 'ITEM', 'PAGE', 'SCREEN']
+    }
   },
   methods: {
-    changeType() {
+    changeType () {
       this.hit = {
-        t: this.hit.t,
-      };
+        t: this.hit.t
+      }
     },
-    sendHit() {
-      this.eventOk = false;
-      this.eventError = null;
+    sendHit () {
+      this.eventOk = false
+      this.eventError = null
 
-      this.$http.post("/hit", this.hit).then(
+      this.$http.post('/hit', this.hit).then(
         () => {
-          this.eventOk = true;
+          this.eventOk = true
         },
         (response) => {
-          this.eventOk = false;
-          this.eventError = response.body;
+          this.eventOk = false
+          this.eventError = response.body
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

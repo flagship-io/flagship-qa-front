@@ -33,32 +33,32 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      activate: { name: "", type: "bool", defaultValue: "", activate: true },
-      activateOk: false,
-    };
+      activate: { name: '', type: 'bool', defaultValue: '', activate: true },
+      activateOk: false
+    }
   },
   methods: {
-    activateFlag() {
-      this.activateOk = false;
+    activateFlag () {
+      this.activateOk = false
 
-      const { name } = this.activate;
+      const { name } = this.activate
 
       if (!name) {
-        this.activateOk = { err: "Missing flag name or type" };
-        return;
+        this.activateOk = { error: 'Missing flag name or type' }
+        return
       }
 
       this.$http.get(`/flag/${name}/activate`).then(
         (response) => {
-          this.activateOk = response.body;
+          this.activateOk = response.body
         },
         (response) => {
-          this.activateOk = response.body;
+          this.activateOk = response.body
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>
