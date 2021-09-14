@@ -27,40 +27,40 @@
 
 <script>
 export default {
-  name: "qa",
-  data() {
+  name: 'qa',
+  data () {
     return {
-      data: null,
-    };
+      data: null
+    }
   },
-  mounted() {
-    this.getLogs();
+  mounted () {
+    this.getLogs()
   },
   methods: {
-    getLogs() {
-      this.$http.get(`/logs`).then(
+    getLogs () {
+      this.$http.get('/logs').then(
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.data = {}
+          this.data.logs = response.bodyText
         },
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.data = {}
+          this.data.logs = response.bodyText
         }
-      );
+      )
     },
-    clearLogs() {
-      this.$http.get(`/clear`).then(
+    clearLogs () {
+      this.$http.get('/clear').then(
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.data = {}
+          this.data.logs = response.bodyText
         },
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.data = {}
+          this.data.logs = response.bodyText
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

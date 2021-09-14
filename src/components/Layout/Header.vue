@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import routes from "../../constants/routes";
+import routes from '../../constants/routes'
 
 export default {
-  props: ["branch", "technology", "environment"],
-  data() {
-    return { routes };
-  },
-};
+  props: ['branch', 'technology', 'environment'],
+  data () {
+    return { routes }
+  }
+}
 </script>
 
 <style></style>
