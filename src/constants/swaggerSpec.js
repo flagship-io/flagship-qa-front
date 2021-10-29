@@ -162,6 +162,41 @@ export default {
         },
       },
     },
+    "/visitor/context/{key}": {
+      put: {
+        tags: ["Visitor"],
+        summary: "Update context key",
+        operationId: "setVisitorContextKey",
+        consumes: ["application/json"],
+        produces: ["application/json"],
+        parameters: [
+          {
+            name: "type",
+            in: "body",
+            description: "The key type",
+            required: true,
+            type: "string",
+          },
+          {
+            name: "value",
+            in: "body",
+            description: "The new context key value",
+            required: true,
+            type: "string",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "successful operation",
+            schema: { $ref: "#/definitions/VisitorInfo" },
+          },
+          "400": {
+            description: "error operation",
+            schema: { $ref: "#/definitions/BadRequest" },
+          },
+        },
+      },
+    },
     "/authenticate": {
       put: {
         tags: ["Visitor"],
@@ -250,7 +285,7 @@ export default {
           "200": {
             description: "successful operation",
             schema: {
-              type: "array",
+              type: "object",
               items: { $ref: "#/definitions/FlagValueInfo" },
             },
           },
