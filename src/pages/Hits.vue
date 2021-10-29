@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h2 class="mt-5">
-      Send Hit
-    </h2>
+    <h2 class="mt-5">Send Hit</h2>
     <form v-on:submit.prevent="sendHit()">
       <div class="form-group">
         <label>Hit type</label>
-        <select class="form-control" v-model="hit.t" @change="changeType">
+        <select
+          class="form-control"
+          v-model="hit.t"
+          @change="changeType"
+          required
+        >
           <option v-for="t in hitTypes" :key="t" :value="t">
             {{ t }}
           </option>
@@ -16,12 +19,8 @@
       <div v-if="hit.t == 'EVENT'" class="form-group">
         <label>Event Category</label>
         <select class="form-control" v-model="hit.ec" required>
-          <option value="ACTION_TRACKING">
-            ACTION_TRACKING
-          </option>
-          <option value="USER_ENGAGEMENT">
-            USER_ENGAGEMENT
-          </option>
+          <option value="ACTION_TRACKING">ACTION_TRACKING</option>
+          <option value="USER_ENGAGEMENT">USER_ENGAGEMENT</option>
         </select>
       </div>
 
@@ -37,7 +36,7 @@
       </div>
 
       <div v-if="hit.t == 'EVENT'" class="form-group">
-        <label>Event Value</label>
+        <label>Event Value (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -47,7 +46,7 @@
       </div>
 
       <div v-if="hit.t == 'EVENT'" class="form-group">
-        <label>Event Label</label>
+        <label>Event Label (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -79,7 +78,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Transaction Revenue</label>
+        <label>Transaction Revenue (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -89,7 +88,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Shipping Cost</label>
+        <label>Shipping Cost (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -99,7 +98,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Shipping Method</label>
+        <label>Shipping Method (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -109,7 +108,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Transaction Taxes</label>
+        <label>Transaction Taxes (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -119,7 +118,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Transaction Currency</label>
+        <label>Transaction Currency (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -129,7 +128,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Payment Method</label>
+        <label>Payment Method (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -139,7 +138,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Item Count</label>
+        <label>Item Count (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -149,7 +148,7 @@
       </div>
 
       <div v-if="['TRANSACTION'].includes(hit.t)" class="form-group">
-        <label>Coupon Code</label>
+        <label>Coupon Code (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -192,7 +191,7 @@
       </div>
 
       <div v-if="['ITEM'].includes(hit.t)" class="form-group">
-        <label>Item Category</label>
+        <label>Item Category (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -202,7 +201,7 @@
       </div>
 
       <div v-if="['ITEM'].includes(hit.t)" class="form-group">
-        <label>Item Price</label>
+        <label>Item Price (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -212,7 +211,7 @@
       </div>
 
       <div v-if="['ITEM'].includes(hit.t)" class="form-group">
-        <label>Item Quantity</label>
+        <label>Item Quantity (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -227,7 +226,7 @@
         "
         class="form-group"
       >
-        <label>Resolution Width</label>
+        <label>Resolution Width (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -242,7 +241,7 @@
         "
         class="form-group"
       >
-        <label>Resolution Height</label>
+        <label>Resolution Height (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -257,7 +256,7 @@
         "
         class="form-group"
       >
-        <label>Local</label>
+        <label>Local (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -272,7 +271,7 @@
         "
         class="form-group"
       >
-        <label>Ip</label>
+        <label>Ip (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -287,7 +286,7 @@
         "
         class="form-group"
       >
-        <label>Session number</label>
+        <label>Session number (Optional)</label>
         <input
           type="text"
           class="form-control"
@@ -299,9 +298,7 @@
       <div class="alert alert-danger" v-if="eventError">
         {{ eventError.error }}
       </div>
-      <div class="alert alert-success" v-if="eventOk">
-        Hit sent OK !
-      </div>
+      <div class="alert alert-success" v-if="eventOk">Hit sent OK !</div>
 
       <button type="submit" class="btn btn-info">Send event</button>
     </form>
@@ -310,35 +307,35 @@
 
 <script>
 export default {
-  name: "qa",
-  data() {
+  name: 'qa',
+  data () {
     return {
       eventOk: false,
       eventError: null,
-      hit: { t: "EVENT" },
-      hitTypes: ["EVENT", "TRANSACTION", "ITEM", "PAGE", "SCREEN"],
-    };
+      hit: { t: 'EVENT' },
+      hitTypes: ['EVENT', 'TRANSACTION', 'ITEM', 'PAGE', 'SCREEN']
+    }
   },
   methods: {
-    changeType() {
+    changeType () {
       this.hit = {
-        t: this.hit.t,
-      };
+        t: this.hit.t
+      }
     },
-    sendHit() {
-      this.eventOk = false;
-      this.eventError = null;
+    sendHit () {
+      this.eventOk = false
+      this.eventError = null
 
-      this.$http.post("/hit", this.hit).then(
+      this.$http.post('/hit', this.hit).then(
         () => {
-          this.eventOk = true;
+          this.eventOk = true
         },
         (response) => {
-          this.eventOk = false;
-          this.eventError = response.body;
+          this.eventOk = false
+          this.eventError = response.body
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

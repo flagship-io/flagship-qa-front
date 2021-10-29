@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import QA from "./QA.vue";
-import { All } from "./constants/features";
+import QA from './QA.vue'
+import { All } from './constants/features'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    QA,
+    QA
   },
-  data() {
-    console.log(All);
+  data () {
+    console.log(All)
     return {
-      features: All,
-    };
-  },
-};
+      features: All
+    }
+  }
+}
 </script>
 
 <style></style>
