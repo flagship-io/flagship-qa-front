@@ -206,42 +206,42 @@ export default {
         }
       }
     },
-    "/visitor/context/{key}": {
+    '/visitor/context/{key}': {
       put: {
-        tags: ["Visitor"],
-        summary: "Update context key",
-        operationId: "setVisitorContextKey",
-        consumes: ["application/json"],
-        produces: ["application/json"],
+        tags: ['Visitor'],
+        summary: 'Update context key',
+        operationId: 'setVisitorContextKey',
+        consumes: ['application/json'],
+        produces: ['application/json'],
         parameters: [
           {
-            name: "type",
-            in: "body",
-            description: "The key type",
+            name: 'type',
+            in: 'body',
+            description: 'The key type',
             required: true,
-            type: "string",
+            type: 'string'
           },
           {
-            name: "value",
-            in: "body",
-            description: "The new context key value",
+            name: 'value',
+            in: 'body',
+            description: 'The new context key value',
             required: true,
-            type: "string",
-          },
+            type: 'string'
+          }
         ],
         responses: {
-          "200": {
-            description: "successful operation",
-            schema: { $ref: "#/definitions/VisitorInfo" },
+          200: {
+            description: 'successful operation',
+            schema: { $ref: '#/definitions/VisitorInfo' }
           },
-          "400": {
-            description: "error operation",
-            schema: { $ref: "#/definitions/BadRequest" },
-          },
-        },
-      },
+          400: {
+            description: 'error operation',
+            schema: { $ref: '#/definitions/BadRequest' }
+          }
+        }
+      }
     },
-    "/authenticate": {
+    '/authenticate': {
       put: {
         tags: ['Visitor'],
         summary: 'Authenticate current visitor',
@@ -329,16 +329,16 @@ export default {
           200: {
             description: 'successful operation',
             schema: {
-              type: "object",
-              items: { $ref: "#/definitions/FlagValueInfo" },
-            },
+              type: 'object',
+              items: { $ref: '#/definitions/FlagValueInfo' }
+            }
           },
-          "400": {
-            description: "error operation",
-            schema: { $ref: "#/definitions/BadRequest" },
-          },
-        },
-      },
+          400: {
+            description: 'error operation',
+            schema: { $ref: '#/definitions/BadRequest' }
+          }
+        }
+      }
     },
     '/flag/{name}/info': {
       get: {
