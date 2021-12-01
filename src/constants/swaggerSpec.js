@@ -421,6 +421,32 @@ export default {
           }
         }
       }
+    },
+    '/logs': {
+      get: {
+        tags: ['Logs'],
+        summary: 'Get all logs from the SDK',
+        operationId: 'getLogs',
+        produces: ['text/plain'],
+        responses: {
+          200: {
+            description: 'successful operation'
+          }
+        }
+      }
+    },
+    '/logs/clear': {
+      post: {
+        tags: ['Logs'],
+        summary: 'Clear all logs from the SDK',
+        operationId: 'Logs',
+        produces: ['text/plain'],
+        responses: {
+          200: {
+            description: 'successful operation'
+          }
+        }
+      }
     }
   },
 
