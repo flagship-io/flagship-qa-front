@@ -33,25 +33,25 @@
 </template>
 
 <script>
-import SwaggerUI from "swagger-ui";
-import "swagger-ui/dist/swagger-ui.css";
-import swaggerSpec from "../constants/swaggerSpec.js";
-import { All, V1, V2 } from "../constants/features.js";
+import SwaggerUI from 'swagger-ui'
+import 'swagger-ui/dist/swagger-ui.css'
+import swaggerSpec from '../constants/swaggerSpec.js'
+import { All, V1, V2 } from '../constants/features.js'
 export default {
-  data() {
+  data () {
     return {
       AllFeatures: All,
       V1Features: V1,
-      V2Features: V2,
-    };
+      V2Features: V2
+    }
   },
-  mounted() {
+  mounted () {
     SwaggerUI({
-      dom_id: "#swagger",
-      spec: swaggerSpec,
-    });
-  },
-};
+      dom_id: '#swagger',
+      spec: swaggerSpec
+    })
+  }
+}
 </script>
 
 <style>

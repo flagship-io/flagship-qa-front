@@ -69,20 +69,20 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      flag: { name: "", type: "bool", defaultValue: "", activate: true },
-      flagOk: false,
-    };
+      flag: { name: '', type: 'bool', defaultValue: '', activate: true },
+      flagOk: false
+    }
   },
   methods: {
-    getFlag() {
-      this.flagOk = false;
-      const { name, type, activate, defaultValue } = this.flag;
+    getFlag () {
+      this.flagOk = false
+      const { name, type, activate, defaultValue } = this.flag
 
       if (!name || !type) {
-        this.flagOk = { error: "Missing flag name or type" };
-        return;
+        this.flagOk = { error: 'Missing flag name or type' }
+        return
       }
 
       this.$http
@@ -90,18 +90,18 @@ export default {
           params: {
             type,
             activate,
-            defaultValue,
-          },
+            defaultValue
+          }
         })
         .then(
           (response) => {
-            this.flagOk = response.body;
+            this.flagOk = response.body
           },
           (response) => {
-            this.flagOk = response.body;
+            this.flagOk = response.body
           }
-        );
-    },
-  },
-};
+        )
+    }
+  }
+}
 </script>

@@ -2,22 +2,21 @@
   <div>
     <div style="position: relative;">
       <h2 class="mt-5">SDK logs</h2>
-      <form v-on:submit.prevent="clearLogs()">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          style="position: absolute; right: 0px;"
-        >
-          clear
-        </button>
-      </form>
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="position: absolute; right: 0px;"
+        @click="clearLogs()"
+      >
+        clear
+      </button>
       <form v-on:submit.prevent="getLogs()">
         <button type="submit" class="btn btn-primary">refresh</button>
         <br /><br />
         <textarea
           class="form-control"
           style="height: 564px;"
-          v-model="data.logs"
+          v-model="logs"
         >
         </textarea>
       </form>
@@ -27,40 +26,36 @@
 
 <script>
 export default {
-  name: "qa",
-  data() {
+  name: 'qa',
+  data () {
     return {
-      data: null,
-    };
+      logs: ''
+    }
   },
-  mounted() {
-    this.getLogs();
+  mounted () {
+    this.getLogs()
   },
   methods: {
-    getLogs() {
-      this.$http.get(`/logs`).then(
+    getLogs () {
+      this.$http.get('/logs').then(
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.logs = response.bodyText
         },
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.logs = response.bodyText
         }
-      );
+      )
     },
-    clearLogs() {
-      this.$http.get(`/clear`).then(
+    clearLogs () {
+      this.$http.post('/logs/clear').then(
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.logs = response.bodyText
         },
         (response) => {
-          this.data = {};
-          this.data.logs = response.bodyText;
+          this.logs = response.bodyText
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

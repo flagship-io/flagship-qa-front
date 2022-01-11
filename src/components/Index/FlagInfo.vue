@@ -33,32 +33,32 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      flagInfo: { name: "" },
-      flagInfoOk: false,
-    };
+      flagInfo: { name: '' },
+      flagInfoOk: false
+    }
   },
   methods: {
-    getFlagInfo() {
-      this.flagInfoOk = false;
+    getFlagInfo () {
+      this.flagInfoOk = false
 
-      const { name } = this.flagInfo;
+      const { name } = this.flagInfo
 
       if (!name) {
-        this.flagInfoOk = { err: "Missing flag name or type" };
-        return;
+        this.flagInfoOk = { error: 'Missing flag name or type' }
+        return
       }
 
       this.$http.get(`/flag/${name}/info`).then(
         (response) => {
-          this.flagInfoOk = response.body;
+          this.flagInfoOk = response.body
         },
         (response) => {
-          this.flagInfoOk = response.body;
+          this.flagInfoOk = response.body
         }
-      );
-    },
-  },
-};
+      )
+    }
+  }
+}
 </script>

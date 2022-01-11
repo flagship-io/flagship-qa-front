@@ -14,7 +14,10 @@
     </div>
 
     <div v-if="isEnabled(AllFeatures.experienceContinuity)">
-      <ExperienceContinuity :visitorId="visitorId" />
+      <ExperienceContinuity
+        :visitorId="visitorId"
+        :onNewVisitorId="(vId) => (this.visitorId = vId)"
+      />
     </div>
 
     <div v-if="isEnabled(AllFeatures.flagValue)">
@@ -35,27 +38,27 @@
 </template>
 
 <script>
-import Environment from "../components/Index/Environment";
-import Visitor from "../components/Index/Visitor";
-import FlagValue from "../components/Index/FlagValue";
-import FlagActivate from "../components/Index/FlagActivate";
-import FlagInfo from "../components/Index/FlagInfo";
-import ExperienceContinuity from "../components/Index/ExperienceContinuity.vue";
+import Environment from '../components/Index/Environment'
+import Visitor from '../components/Index/Visitor'
+import FlagValue from '../components/Index/FlagValue'
+import FlagActivate from '../components/Index/FlagActivate'
+import FlagInfo from '../components/Index/FlagInfo'
+import ExperienceContinuity from '../components/Index/ExperienceContinuity.vue'
 
 export default {
-  name: "qa",
+  name: 'qa',
   components: {
     Environment,
     Visitor,
     FlagValue,
     FlagActivate,
     FlagInfo,
-    ExperienceContinuity,
+    ExperienceContinuity
   },
-  data() {
+  data () {
     return {
-      visitorId: "",
-    };
-  },
-};
+      visitorId: ''
+    }
+  }
+}
 </script>

@@ -33,8 +33,48 @@
       <small class="form-text text-muted">Set your timeout.</small>
     </div>
 
-    <div class="form-group" v-if="isEnabled(AllFeatures.pollingInterval)">
-      <label>Polling interval (milliseconds)</label>
+    <div class="form-group">
+      <label>Flagship Mode</label>
+      <select
+        type="text"
+        class="form-control"
+        placeholder="Flagship Mode"
+        v-model="flagshipMode"
+      >
+        <option value="api">API</option>
+        <option value="bucketing" v-if="isEnabled(AllFeatures.bucketing)">
+          Bucketing
+        </option>
+      </select>
+    </div>
+
+    <div
+      v-if="
+        flagshipMode == 'bucketing' &&
+        isEnabled(AllFeatures.pollingIntervalUnit)
+      "
+      class="form-group"
+    >
+      <label>Polling time interval unit</label>
+      <select
+        type="text"
+        class="form-control"
+        placeholder="Flagship Mode"
+        v-model="pollingIntervalUnit"
+      >
+        <option value="milliseconds">Milliseconds</option>
+        <option value="seconds">Second</option>
+        <option value="minutes">Minutes</option>
+      </select>
+    </div>
+
+    <div
+      v-if="
+        flagshipMode == 'bucketing' && isEnabled(AllFeatures.pollingInterval)
+      "
+      class="form-group"
+    >
+      <label>Polling time interval</label>
       <input
         type="text"
         class="form-control"
@@ -43,13 +83,6 @@
       />
       <small class="form-text text-muted">Set your polling interval.</small>
     </div>
-
-    <div class="form-check mb-3" v-if="isEnabled(AllFeatures.bucketing)">
-      <input class="form-check-input" type="checkbox" v-model="bucketing" />
-      <label class="form-check-label"> Use bucketing </label>
-    </div>
-
-   
 
     <div class="alert alert-danger" v-if="envError">
       {{ envError.error }}
@@ -63,54 +96,90 @@
 </template>
 
 <script>
+const BUCKETING = 'bucketing'
+const API = 'api'
 export default {
-  data() {
+  data () {
     return {
-      envId: "",
-      apiKey: "",
+      envId: '',
+      apiKey: '',
       timeout: 2000,
-      pollingInterval: 60000,
-      bucketing: false,
+      pollingInterval: 2000,
       envOk: false,
       envError: null,
-    };
+      flagshipMode: API,
+      pollingIntervalUnit: 'milliseconds'
+    }
   },
-  mounted() {
-    this.getEnv();
+  mounted () {
+    this.getEnv()
   },
   methods: {
-    getEnv() {
-      this.$http.get("/env").then((response) => {
+    getEnv () {
+      this.$http.get('/env').then((response) => {
         // get body data
-        this.currentEnv = response.body;
-        this.bucketing = response.body.bucketing;
-        this.envId = response.body.environment_id;
-        this.apiKey = response.body.api_key;
-        this.timeout = response.body.timeout;
-        this.pollingInterval = response.body.polling_interval;
-      });
+        this.currentEnv = response.body
+        this.bucketing = response.body.bucketing
+        this.envId = response.body.environment_id
+        this.apiKey = response.body.api_key
+        this.timeout = response.body.timeout
+        this.flagshipMode = this.bucketing ? BUCKETING : API
+      })
     },
-    setEnv() {
-      this.envOk = false;
-      this.envError = null;
+    getPollingInterval (pollingIntervalUnit, pollingInterval) {
+      switch (pollingIntervalUnit) {
+        case 'seconds':
+          pollingInterval = pollingInterval * 1000
+          break
+        case 'minutes':
+          pollingInterval = pollingInterval * 1000 * 60
+          break
+        default:
+
+          break
+      }
+      return pollingInterval
+    },
+    isEnvValidat () {
+      const error = {}
+      if (!this.envId) {
+        error.envId = 'Environnemet ID is required'
+      }
+      if (!this.apiKey) {
+        error.apiKey = 'API key is required'
+      }
+
+      if (Object.keys(error).length) {
+        this.envError = { error }
+        this.envOk = false
+        return false
+      }
+      return true
+    },
+    setEnv () {
+      if (!this.isEnvValidat()) {
+        return
+      }
+      this.envOk = false
+      this.envError = null
       this.$http
-        .put("/env", {
+        .put('/env', {
           environment_id: this.envId,
           api_key: this.apiKey,
-          bucketing: this.bucketing,
-          timeout: this.timeout || 0,
-          polling_interval: this.pollingInterval || 0,
+          bucketing: this.flagshipMode === BUCKETING,
+          timeout: this.timeout || 2000,
+          polling_interval: this.getPollingInterval(this.pollingIntervalUnit, this.pollingInterval)
         })
         .then(
           () => {
-            this.envOk = true;
+            this.envOk = true
           },
           (response) => {
-            this.envOk = false;
-            this.envError = response.body;
+            this.envOk = false
+            this.envError = response.body
           }
-        );
-    },
-  },
-};
+        )
+    }
+  }
+}
 </script>
