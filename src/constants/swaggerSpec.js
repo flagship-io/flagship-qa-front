@@ -317,6 +317,13 @@ export default {
             description: 'The flag key name',
             required: true,
             type: 'string'
+          },
+          {
+            name: 'defaultValue',
+            in: 'query',
+            description: 'The flag default value',
+            required: true,
+            type: 'string'
           }
         ],
         responses: {
@@ -344,6 +351,13 @@ export default {
             name: 'name',
             in: 'path',
             description: 'The flag key name',
+            required: true,
+            type: 'string'
+          },
+          {
+            name: 'defaultValue',
+            in: 'query',
+            description: 'The flag default value',
             required: true,
             type: 'string'
           }
