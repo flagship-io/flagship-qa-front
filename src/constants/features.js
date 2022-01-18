@@ -10,6 +10,7 @@ export const V1 = {
 }
 
 export const V2 = {
+  ...V1,
   bucketing: 'bucketing',
   pollingInterval: 'polling-interval',
   pollingIntervalUnit: 'polling-interval-unit',
@@ -17,11 +18,16 @@ export const V2 = {
 }
 
 export const V3 = {
-  consent: 'visitor-consent'
+  ...V2,
+  consent: 'visitor-consent',
+  flagActivate: null,
+  flagInfo: null,
+  flagActivate3: 'flag-activate',
+  flagInfo3: 'flag-info'
 }
 
 export const All = {
   ...V1,
   ...V2,
-  ...V3
+  consent: 'visitor-consent'
 }

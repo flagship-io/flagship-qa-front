@@ -60,7 +60,7 @@ export default {
     },
     features: {
       default () {
-        return Object.values(V1)
+        return V1
       }
     }
   },
@@ -91,12 +91,7 @@ export default {
     }
   },
   mounted () {
-    let features = this.features
-    if (!Array.isArray(features)) {
-      features = Object.values(features)
-    }
-
-    this.$store.commit('setFeatures', features)
+    this.$store.commit('setFeatures', this.features)
   }
 }
 </script>
