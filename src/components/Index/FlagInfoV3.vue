@@ -44,11 +44,12 @@ export default {
         this.flagInfoOk = { error: 'Please set get Flag first' }
         return
       }
-      const { key, defaultValue } = this.flag
+      const { key, defaultValue, type } = this.flag
 
       this.$http.get(`/flag/${key}/info`, {
         params: {
-          defaultValue
+          defaultValue,
+          type
         }
       }).then(
         (response) => {
