@@ -96,6 +96,7 @@ export default {
         .then(
           (response) => {
             this.flagOk = response.body
+            this.$emit('updateFlag', { defaultValue, key: name })
           },
           (response) => {
             this.flagOk = response.body

@@ -14,7 +14,6 @@ export default {
     QA
   },
   data () {
-    console.log(All)
     return {
       features: All
     }

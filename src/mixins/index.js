@@ -1,20 +1,22 @@
 import Vue from 'vue'
-import { All } from '../constants/features'
+import { mapGetters } from 'vuex'
 
 export default Vue.mixin({
   data: function () {
     return {
-      get AllFeatures () {
-        return All
-      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      AllFeatures: 'features'
+    })
   },
   methods: {
     isUndefined (v) {
       return typeof v === 'undefined'
     },
     isEnabled (feature) {
-      return this.$store.getters.features.includes(feature)
+      return !!feature
     }
   },
   filters: {

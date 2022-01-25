@@ -22,7 +22,7 @@
 
     <div v-if="isEnabled(AllFeatures.flagValue)">
       <h2 class="mt-5">Then, get a Flag Value</h2>
-      <FlagValue />
+      <FlagValue @updateFlag="setFlag" />
     </div>
 
     <div v-if="isEnabled(AllFeatures.flagActivate)">
@@ -30,9 +30,18 @@
       <FlagActivate />
     </div>
 
+    <div v-if="isEnabled(AllFeatures.flagActivate3)">
+      <h2 class="mt-5">Stand alone activate modification</h2>
+      <FlagActivateV3 :flag="flag" />
+    </div>
+
     <div v-if="isEnabled(AllFeatures.flagInfo)">
       <h2 class="mt-5">Get modification information</h2>
       <FlagInfo />
+    </div>
+     <div v-if="isEnabled(AllFeatures.flagInfo3)">
+      <h2 class="mt-5">Get modification information</h2>
+      <FlagInfoV3 :flag="flag" />
     </div>
   </div>
 </template>
@@ -41,6 +50,8 @@
 import Environment from '../components/Index/Environment'
 import Visitor from '../components/Index/Visitor'
 import FlagValue from '../components/Index/FlagValue'
+import FlagActivateV3 from '../components/Index/FlagActivateV3'
+import FlagInfoV3 from '../components/Index/FlagInfoV3'
 import FlagActivate from '../components/Index/FlagActivate'
 import FlagInfo from '../components/Index/FlagInfo'
 import ExperienceContinuity from '../components/Index/ExperienceContinuity.vue'
@@ -51,13 +62,21 @@ export default {
     Environment,
     Visitor,
     FlagValue,
+    FlagActivateV3,
     FlagActivate,
     FlagInfo,
+    FlagInfoV3,
     ExperienceContinuity
   },
   data () {
     return {
-      visitorId: ''
+      visitorId: '',
+      flag: null
+    }
+  },
+  methods: {
+    setFlag (flag) {
+      this.flag = flag
     }
   }
 }
