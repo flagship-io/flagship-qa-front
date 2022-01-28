@@ -47,11 +47,12 @@ export default {
         return
       }
 
-      const { key, defaultValue } = this.flag
+      const { key, defaultValue, type } = this.flag
 
       this.$http.get(`/flag/${key}/activate`, {
         params: {
-          defaultValue
+          defaultValue,
+          type
         }
       }).then(
         (response) => {

@@ -396,6 +396,13 @@ export default {
             description: 'The flag default value',
             required: true,
             type: 'string'
+          },
+          {
+            name: 'type',
+            in: 'query',
+            description: 'The flag default value',
+            required: true,
+            type: 'string'
           }
         ],
         responses: {
